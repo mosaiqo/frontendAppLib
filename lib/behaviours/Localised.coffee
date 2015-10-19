@@ -3,7 +3,7 @@ _          = require 'underscore'
 i18n       = require 'i18next-client'
 Backbone   = require 'backbone'
 Marionette = require 'backbone.marionette'
-tabTmpl    = require 'templates/tab.hbs'
+tabTmpl    = require './templates/tab.hbs'
 
 
 ###
