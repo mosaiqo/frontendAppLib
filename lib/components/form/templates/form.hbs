@@ -1,0 +1,34 @@
+<div class="form-container">
+  <div id="form-content-region"></div>
+  {{#if footer }}
+    <footer class="form-group form-actions">
+      {{#if buttons}}
+        {{#with buttons}}
+
+          {{#if primaryActions}}
+            <div class="pull-right">
+              {{#each primaryActions}}
+                <button type="{{ buttonType }}" data-form-button="{{ type }}" class="{{ className }}">
+                {{#if icon}}<i class="icon icon-{{icon}}"></i> {{/if}}
+                  {{ text }}
+                </button>
+              {{/each}}
+            </div>
+          {{/if}}
+
+          {{#if secondaryActions}}
+            <div class="pull-left">
+              {{#each secondaryActions}}
+                <button type="{{ buttonType }}" data-form-button="{{ type }}" class="{{ className }}">
+                  {{#if icon}}<i class="icon icon-{{icon}}"></i> {{/if}}
+                  {{ text }}
+                </button>
+              {{/each}}
+            </div>
+          {{/if}}
+
+        {{/with}}
+      {{/if}}
+    </footer>
+  {{/if}}
+</div>
