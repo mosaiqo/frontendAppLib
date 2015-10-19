@@ -1,5 +1,5 @@
 {
-  "name": "MosaiqoFrontendAppLib",
+  "name": "mosaiqo-frontend-app-lib",
   "version": "0.0.1",
   "description": "Library to build fronted apps using Marionnette",
   "author": "Mosaiqo Team <mosaiqo@mosaiqo.com>",
