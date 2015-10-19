@@ -3,18 +3,7 @@ _          = require 'underscore'
 i18n       = require 'i18next-client'
 Backbone   = require 'backbone'
 Marionette = require 'backbone.marionette'
-
-tabTmpl    = """
-<li role="presentation">
-  <a href="#{{target}}" aria-controls="{{target}}" role="tab" data-toggle="tab" data-value="{{value}}">
-    {{label}}
-
-    {{#if closeable}}
-      <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    {{/if}}
-  </a>
-</li>
-"""
+tabTmpl    = require 'templates/tab.hbs'
 
 
 ###
