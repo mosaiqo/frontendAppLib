@@ -1,5 +1,5 @@
 {
-  "name": "mosaiqo-app-lib",
+  "name": "msq-appbase",
   "version": "0.0.1",
   "description": "Library to build fronted apps using Marionnette",
   "author": "Mosaiqo Team <mosaiqo@mosaiqo.com>",
@@ -20,6 +20,9 @@
   "browser": {
     "backbone.webStorage": "./dist/assets/vendor/backbone.webStorage/backbone.webStorage.js",
     "toastr": "./dist/assets/vendor/toastr/toastr.js"
+  },
+  "browserify": {
+    "transform": ["coffeeify", "hbsfy"]
   },
   "devDependencies": {
     "backbone": "^1.2.3",
