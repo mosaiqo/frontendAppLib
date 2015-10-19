@@ -3,7 +3,7 @@ Backbone           = require 'backbone'
 PageableCollection = require 'backbone.paginator'
 customSync         = require './util/sync'
 expandsParser      = require './util/expandsParser'
-channel            = require 'lib/utilities/appChannel'
+channel            = require '../../utilities/appChannel'
 
 
 module.exports = class Collection extends PageableCollection

@@ -1,4 +1,4 @@
-channel = require 'lib/utilities/appChannel'
+channel = require './appChannel'
 
 ###
 Ultra simple global factory using a backbone.radio channel, used to instantiate

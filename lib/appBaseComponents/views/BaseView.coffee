@@ -3,7 +3,7 @@ _          = require 'underscore'
 Marionette = require 'backbone.marionette'
 require './helpers/mixinTemplateHelpers'
 require './helpers/handlebarsHelpers'
-require 'lib/jquery/toggleWrapper'
+require '../../jquery/toggleWrapper'
 
 
 # backup the original method

@@ -4,7 +4,7 @@ $              = require 'jquery'
 _              = require 'underscore'
 Model          = require './Model'
 LocaleMutators = require './util/LocalesMutators'
-channel        = require 'lib/utilities/appChannel'
+channel        = require '../../utilities/appChannel'
 Validator      = require 'backbone-validation'
 
 

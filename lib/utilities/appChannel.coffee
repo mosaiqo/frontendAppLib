@@ -1,4 +1,4 @@
-Radio   = require 'backbone.radio'
+Radio  = require 'backbone.radio'
 config = require('../config').get()
 
 
