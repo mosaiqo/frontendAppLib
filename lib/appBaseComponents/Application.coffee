@@ -2,7 +2,7 @@ Marionette = require 'backbone.marionette'
 Radio      = require 'backbone.radio'
 
 # Apply the radio shim so backbone.radio is used instead of backbone.wreqr
-require 'lib/shims/radio'
+require '../shims/radio'
 
 
 

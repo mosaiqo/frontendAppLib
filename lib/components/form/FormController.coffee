@@ -1,7 +1,7 @@
 _              = require 'underscore'
 _s             = require 'underscore.string'
 Backbone       = require 'backbone'
-ViewController = require 'lib/appBaseComponents/controllers/ViewController'
+ViewController = require '../../appBaseComponents/controllers/ViewController'
 FormLayout     = require './FormLayout'
 
 

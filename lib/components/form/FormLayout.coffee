@@ -1,6 +1,6 @@
 _          = require 'underscore'
 $          = require 'jquery'
-LayoutView = require 'lib/appBaseComponents/views/LayoutView'
+LayoutView = require '../../appBaseComponents/views/LayoutView'
 Validator  = require 'backbone-validation'
 
 

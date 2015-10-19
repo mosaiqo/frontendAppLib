@@ -1,5 +1,5 @@
 Marionette = require 'backbone.marionette'
-channel    = require 'lib/utilities/appChannel'
+channel    = require '../utilities/appChannel'
 
 
 module.exports = class Object extends Marionette.Object

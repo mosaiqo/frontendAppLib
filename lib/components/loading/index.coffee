@@ -1,5 +1,5 @@
 LoadingController = require './LoadingController'
-channel           = require 'lib/utilities/appChannel'
+channel           = require '../../utilities/appChannel'
 
 
 module.exports = (Module, App, Backbone, Marionette, $, _) ->
