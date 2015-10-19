@@ -1,4 +1,4 @@
-Model = require 'lib/appBaseComponents/entities/Model'
+Model = require '../../../appBaseComponents/entities/Model'
 
 
 module.exports = class Button extends Model

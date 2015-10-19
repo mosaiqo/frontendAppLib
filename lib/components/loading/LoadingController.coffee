@@ -1,5 +1,5 @@
 _              = require 'underscore'
-ViewController = require 'lib/appBaseComponents/controllers/ViewController'
+ViewController = require '../../appBaseComponents/controllers/ViewController'
 LoadingView    = require './LoadingView'
 
 

@@ -1,4 +1,4 @@
-Collection = require 'lib/appBaseComponents/entities/Collection'
+Collection = require '../../../appBaseComponents/entities/Collection'
 Button     = require './Button'
 
 

@@ -1,7 +1,7 @@
 # Dependencies
 # -----------------------
 _             = require 'underscore'
-globalFactory = require 'lib/utilities/factory'
+globalFactory = require '../../utilities/factory'
 
 # Base class
 Module        = require './Module'

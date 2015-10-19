@@ -1,4 +1,4 @@
-ItemView = require 'lib/appBaseComponents/views/ItemView'
+ItemView = require '../../appBaseComponents/views/ItemView'
 
 
 module.exports = class LoadingView extends ItemView

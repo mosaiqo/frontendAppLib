@@ -1,5 +1,5 @@
 {
-  "name": "mosaiqo-frontend-app-lib",
+  "name": "mosaiqo-app-lib",
   "version": "0.0.1",
   "description": "Library to build fronted apps using Marionnette",
   "author": "Mosaiqo Team <mosaiqo@mosaiqo.com>",
@@ -61,8 +61,5 @@
     "time-grunt": "^1.2.1",
     "underscore": "^1.8.3",
     "underscore.string": "^3.2.2"
-  },
-  "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }
