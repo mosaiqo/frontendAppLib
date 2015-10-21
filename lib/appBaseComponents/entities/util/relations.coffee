@@ -22,9 +22,11 @@ module.exports =
 
       if relation.saveFilterAttributes and relationAttr
         if relation.type is Backbone.One
+          console.log 'one', relation.type, relationAttr
           # relationAttr is a model
           filtered = _.pick relationAttr, relation.saveFilterAttributes
         else
+          console.log 'multi', relation.type, relationAttr
           # relationAttr is a collection
           filtered = relationAttr.reduce((memo, model) ->
             memo.push _.pick(model, relation.saveFilterAttributes)
