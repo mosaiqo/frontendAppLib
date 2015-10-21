@@ -13,6 +13,7 @@ module.exports = class Model extends Backbone.AssociatedModel
   _.extend @::, require './util/timestamps'
   _.extend @::, require './util/computed'
   _.extend @::, require './util/expands'
+  _.extend @::, require './util/relations'
 
 
   ###
@@ -31,6 +32,7 @@ module.exports = class Model extends Backbone.AssociatedModel
     @setupTimestamps attributes, options
     @setupComputed   attributes, options
     @setupExpands    attributes, options
+    @setupRelations  attributes, options
 
     super attributes, options
 
