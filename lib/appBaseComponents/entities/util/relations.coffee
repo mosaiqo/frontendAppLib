@@ -1,4 +1,5 @@
-_ = require 'underscore'
+_        = require 'underscore'
+Backbone = require 'backbone'
 
 
 module.exports =
