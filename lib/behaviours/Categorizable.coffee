@@ -25,6 +25,23 @@ module.exports = class Categorizable extends Marionette.Behavior
     categoryField: @options.categoryField
 
 
+  ###
+  Behaviour initialization
+  ###
+  initialize: ->
+    # When the views are serialized, the form controller returns
+    # the result of backbone.syphon serialization, merged with
+    # an optional defaults deffined in the view.
+    # So inject an additional key to the defaults, to make sure
+    # the locales are always parsed (even if the user removes them
+    # all from the view)
+    serializationDefaults = @view.serializationDefaults or {}
+
+    newDefaults = {}
+    newDefaults[@options.categoryModelAttribute] = null
+    @view.serializationDefaults = _.defaults serializationDefaults, newDefaults
+
+
 
   ###
   Handler executed when the view is rendered
