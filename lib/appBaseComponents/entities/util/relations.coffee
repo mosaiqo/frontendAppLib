@@ -11,13 +11,13 @@ module.exports =
   are serialized callig to JSON. This allows to filter which attributes to send
   when a nested entity is serialized
   ###
-  applyRelationsFilters: (method, entity, options = {}) ->
+  _applyRelationsFilters: (method, entity, options = {}) ->
     if !options.attrs or !entity.relations
       return
 
     attrs = options.attrs
 
-    entity.relations.forEach (relation) ->
+    entity.relations.forEach (relation) =>
       relationAttr = attrs[relation.key]
 
       if relation.saveFilterAttributes and relationAttr
@@ -27,18 +27,27 @@ module.exports =
           if relationAttr instanceof Backbone.Model
             relationAttr = relationAttr.toJSON()
           
-          filtered = _.pick relationAttr, relation.saveFilterAttributes
+          filtered = @_filterRelationEntity relationAttr, relation.saveFilterAttributes
           
         else
           # relationAttr is a collection
-          filtered = relationAttr.reduce((memo, model) ->
-            memo.push _.pick(model, relation.saveFilterAttributes)
+          filtered = relationAttr.reduce((memo, model) =>
+            memo.push @_filterRelationEntity(model, relation.saveFilterAttributes)
             memo
           , [])
 
         options.attrs[relation.key] = filtered
 
 
+  ###
+  Aux method, retrieves only the selected entity attributes
+  ###
+  _filterRelationEntity: (entity, attributes) ->
+    if entity instanceof Backbone.Model
+      entity = entity.toJSON()
+
+    _.pick entity, attributes
+
 
   setupRelations: ->
-    @listenTo @, 'beforeSync', @applyRelationsFilters
+    @listenTo @, 'beforeSync', @_applyRelationsFilters
