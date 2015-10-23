@@ -97,9 +97,36 @@ module.exports = class Model extends Backbone.AssociatedModel
     # weird empty key...
     data = _.omit data, ''
 
+
+    # Backbone associations performs 'smart' sets on nested entities
+    # so the regural set does not clear them with empty or null values
+    nestedEntityChanges = {}
+
+    if @relations
+      @relations.forEach (relation) =>
+        attr = relation.key
+
+        unless _.isUndefined data[attr]
+          if relation.type is Backbone.Many
+            if _.isArray(data[attr]) and _.isEmpty(data[attr])
+              @unset attr
+              nestedEntityChanges[attr] = data[attr]
+              delete data[attr]
+
+          else
+            if data[attr] is null
+              @unset attr
+              nestedEntityChanges[attr] = data[attr]
+              delete data[attr]
+
+
     # update the attributes
     # calling set instead of save(data) in order to run any custom setter
     @set data
+
+    # the previous set resets the @changed hash, so restore any changes
+    # performed on the relations
+    _.extend @changed, nestedEntityChanges
 
     if @isNew()
       @save null, options
