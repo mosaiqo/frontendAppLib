@@ -1,6 +1,6 @@
 {
   "name": "msq-appbase",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Library to build fronted apps using Marionnette",
   "author": "Mosaiqo Team <mosaiqo@mosaiqo.com>",
   "homepage": "http://www.mosaiqo.com",
@@ -8,10 +8,6 @@
     {
       "name": "Josep Ramon Camps Lladó",
       "email": "jrcamps@mosaiqo.com"
-    },
-    {
-      "name": "Boudy de Geer",
-      "email": "boudydegeer@mosaiqo.com"
     }
   ],
   "dependencies": {
