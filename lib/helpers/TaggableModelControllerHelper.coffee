@@ -29,8 +29,7 @@ module.exports = class TaggableModelControllerHelper extends BaseObject
     tagsAttr = @options.tagsModelAttribute
 
     # process the tags when the form is submitted (before the model is saved)
-    @listenTo @formView, 'form:submit', (data) =>
-      data[tagsAttr] = @processTags data
+    @listenTo @formView, 'form:submit', (data) => @processTags data
 
     # update the allTags collection with any new tag
     # so the new tags get available for other entities

@@ -28,8 +28,7 @@ module.exports = class CategorizableModelControllerHelper extends BaseObject
     categoryAttr = @options.categoryModelAttribute
 
     # process the category when the form is submitted (before the model is saved)
-    @listenTo @formView, 'form:submit', (data) =>
-      data[categoryAttr] = @processCategory data
+    @listenTo @formView, 'form:submit', (data) => @processCategory data
 
     # update the categories collection with any new category
     # so the new category get available for other entities
@@ -52,31 +51,34 @@ module.exports = class CategorizableModelControllerHelper extends BaseObject
   processCategory: (data) ->
     categoryAttr = @options.categoryModelAttribute
 
-    # the new category to assign
-    requestedCategory = if data[categoryAttr] then data[categoryAttr] else ''
+    unless data[categoryAttr]
+      data[categoryAttr] = null
+    else
+      # the new category to assign
+      requestedCategory = data[categoryAttr]
 
-    # current model category
-    modelCategory = @model.get categoryAttr
+      # current model category
+      modelCategory = @model.get categoryAttr
 
-    # retrieve the category model
-    categoryModel = @findCategoryByDefaultName requestedCategory
+      # retrieve the category model
+      categoryModel = @findCategoryByDefaultName requestedCategory
 
-    # if nothing found, create a new category
-    unless categoryModel
-      categoryFactory = @options.categoryFactory
+      # if nothing found, create a new category
+      unless categoryModel
+        categoryFactory = @options.categoryFactory
 
-      if categoryFactory
-        categoryModel = @appChannel.request categoryFactory
+        if categoryFactory
+          categoryModel = @appChannel.request categoryFactory
 
-        # set the name on the default locale (the model is new,
-        # so the locales collection should contain only one locale)
-        locales  = categoryModel.get 'locales'
-        locale   = locales.at 0
-        locale.set 'name', requestedCategory
-      else
-        categoryModel = null
+          # set the name on the default locale (the model is new,
+          # so the locales collection should contain only one locale)
+          locales  = categoryModel.get 'locales'
+          locale   = locales.at 0
+          locale.set 'name', requestedCategory
+        else
+          categoryModel = null
 
-    data[categoryAttr] = categoryModel
+      data[categoryAttr] = categoryModel
 
 
   ###
