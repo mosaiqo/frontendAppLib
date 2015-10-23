@@ -1,6 +1,7 @@
 $          = require 'jquery'
 _          = require 'underscore'
 Marionette = require 'backbone.marionette'
+channel    = require '../../utilities/appChannel'
 require './helpers/mixinTemplateHelpers'
 require './helpers/handlebarsHelpers'
 require '../../jquery/toggleWrapper'
@@ -12,6 +13,10 @@ _remove = Marionette.View::remove
 
 module.exports =
 
+  # application global Radio channel
+  appChannel: channel
+
+  
   ###
   Adds a 'blocker' to the view displayed while its entities are synced
   ###
