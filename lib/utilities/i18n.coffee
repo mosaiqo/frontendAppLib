@@ -125,7 +125,10 @@ module.exports = (Module, App, Backbone, Marionette, $, _) ->
         App.channel.trigger 'locales:loaded'
     else
       # nothing to load
-      App.channel.trigger 'locales:loaded'
+      setTimeout(->
+        App.channel.trigger 'locales:loaded'
+      , 100)
+
 
 
   ###
