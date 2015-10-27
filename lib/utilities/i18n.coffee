@@ -123,7 +123,9 @@ module.exports = (Module, App, Backbone, Marionette, $, _) ->
     if moduleLocaleNameSpaces.length
       i18n.loadNamespaces moduleLocaleNameSpaces, ->
         App.channel.trigger 'locales:loaded'
-
+    else
+      # nothing to load
+      App.channel.trigger 'locales:loaded'
 
 
   ###
