@@ -29,7 +29,7 @@ module.exports =
 
     if moduleObj.meta?.showInModuleNavigation
       moduleNav =
-        label:  moduleObj.meta?.title   ? ''
+        label:  moduleObj.meta?.title() ? ''
         icon:   moduleObj.meta?.icon    ? ''
         route:  moduleObj.meta?.rootUrl ? '#'
 
