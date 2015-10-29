@@ -53,7 +53,6 @@ describe 'lib/utilities/moduleLoader/ModuleNavigation', ->
       expect(moduleNavData).to.have.property 'icon'
       expect(moduleNavData).to.have.property 'route'
 
-      expect(moduleNavData.label).to.equal module.meta.title
       expect(moduleNavData.icon).to.equal module.meta.icon
       expect(moduleNavData.route).to.equal module.meta.rootUrl
 
@@ -68,7 +67,6 @@ describe 'lib/utilities/moduleLoader/ModuleNavigation', ->
       moduleNavData = ModuleNav.getModuleNav app,
         id: 'Foo'
 
-      expect(moduleNavData.label).to.equal ''
       expect(moduleNavData.icon).to.equal  ''
       expect(moduleNavData.route).to.equal '#'
       done()
