@@ -15,7 +15,8 @@ module.exports =
   parseTimestampFields: (response, options) ->
     for field in @timestampFields
       if response[field]
-        response[field] *=1000
+        if String(response[field]).length is 10
+          response[field] *=1000
 
 
   restoreTimestampFields: (data = {}, options) ->
@@ -24,7 +25,8 @@ module.exports =
     for field in @timestampFields
       if data[field]
         # convert it back to a unix timestamp (seconds)
-        data[field] = parseInt((new Date _data[field])/1000, 10)
+        if String(response[field]).length is 13
+          data[field] = parseInt((new Date _data[field])/1000, 10)
 
 
 
