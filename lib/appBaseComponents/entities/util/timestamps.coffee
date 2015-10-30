@@ -25,7 +25,7 @@ module.exports =
     for field in @timestampFields
       if data[field]
         # convert it back to a unix timestamp (seconds)
-        if String(response[field]).length is 13
+        if String(data[field]).length is 13
           data[field] = parseInt((new Date _data[field])/1000, 10)
 
 
