@@ -1,6 +1,6 @@
 {
   "name": "msq-appbase",
-  "version": "0.0.6c",
+  "version": "0.0.7",
   "description": "Library to build fronted apps using Marionnette",
   "author": "Mosaiqo Team <mosaiqo@mosaiqo.com>",
   "homepage": "http://www.mosaiqo.com",
