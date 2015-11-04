@@ -1,5 +1,6 @@
 $          = require 'jquery'
 Handlebars = require 'handlebars/runtime'
+Moment     = require 'moment'
 
 ###
 Handlebars helpers
@@ -44,6 +45,12 @@ i18n = require 'i18next-client'
 Handlebars.registerHelper "t", (i18n_key) ->
   result = i18n.t(i18n_key)
   new Handlebars.SafeString(result)
+
+
+# Moment helper
+Handlebars.registerHelper 'moment', (context, block) ->
+  fmt = block.hash.format || "MMM DD, YYYY hh:mm:ss A"
+  Moment(context).format fmt
 
 
 
