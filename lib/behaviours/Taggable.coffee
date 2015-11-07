@@ -1,6 +1,7 @@
 _          = require 'underscore'
 Backbone   = require 'backbone'
 Marionette = require 'backbone.marionette'
+I18nModel  = require '../appBaseComponents/entities/I18nModel'
 
 
 ###
@@ -34,7 +35,7 @@ module.exports = class Taggable extends Marionette.Behavior
     # the result of backbone.syphon serialization, merged with
     # an optional defaults deffined in the view.
     # So inject an additional key to the defaults, to make sure
-    # the locales are always parsed (even if the user removes them
+    # the tags are always parsed (even if the user removes them
     # all from the view)
     serializationDefaults = @view.serializationDefaults or {}
 
@@ -95,11 +96,23 @@ module.exports = class Taggable extends Marionette.Behavior
     unless tags
       return []
 
-    tags.reduce((memo, tag) ->
-      locale  = tag.get 'defaultLocale'
+    tags.reduce((memo, tag) =>
+      tagName = @_getTagName tag
 
-      if locale
-        tagName = locale.name
+      if tagName
         memo.push { text: tagName, value: tagName }
       memo
     , [])
+
+
+  ###
+  @return {String} The name of some tag model
+  ###
+  _getTagName: (model) ->
+    if model instanceof I18nModel
+      defaultLocale = model.get 'defaultLocale'
+      tagName       = defaultLocale.name
+    else
+      tagName       = model.name
+
+    tagName

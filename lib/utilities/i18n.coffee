@@ -1,3 +1,4 @@
+$       = require 'jquery'
 _       = require 'underscore'
 i18n    = require 'i18next-client'
 conf    = require('../config').get().locales
@@ -136,6 +137,7 @@ module.exports = (Module, App, Backbone, Marionette, $, _) ->
   ###
   App.channel.reply 'locale:set', (locale) ->
     i18n.setLng locale, ->
+      $('html').attr 'lang', locale
       App.channel.trigger 'locale:loaded', locale
 
 
@@ -167,4 +169,5 @@ module.exports = (Module, App, Backbone, Marionette, $, _) ->
 
   # init
   i18n.init opts, ->
+    $('html').attr 'lang', i18n.detectLanguage()
     App.channel.trigger 'locale:loaded'
