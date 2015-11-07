@@ -1,6 +1,7 @@
 _          = require 'underscore'
 Backbone   = require 'backbone'
 Marionette = require 'backbone.marionette'
+I18nModel  = require '../appBaseComponents/entities/I18nModel'
 
 
 ###
@@ -33,7 +34,7 @@ module.exports = class Categorizable extends Marionette.Behavior
     # the result of backbone.syphon serialization, merged with
     # an optional defaults deffined in the view.
     # So inject an additional key to the defaults, to make sure
-    # the locales are always parsed (even if the user removes them
+    # the categories are always parsed (even if the user removes them
     # all from the view)
     serializationDefaults = @view.serializationDefaults or {}
 
@@ -56,8 +57,8 @@ module.exports = class Categorizable extends Marionette.Behavior
       category = @view.model.get @options.categoryModelAttribute
 
       if category and category instanceof Backbone.Model
-        defaultLocale = category.get 'defaultLocale'
-        @ui.categoryField.val defaultLocale.name
+        categoryName = @_getCategoryName category
+        @ui.categoryField.val categoryName
 
       # setup the widget
       @setUpCategoriesWidget @view.availableCategories
@@ -93,11 +94,23 @@ module.exports = class Categorizable extends Marionette.Behavior
     unless categories
       return []
 
-    categories.reduce((memo, category) ->
-      locale  = category.get 'defaultLocale'
+    categories.reduce((memo, category) =>
+      categoryName = @_getCategoryName category
 
-      if locale
-        categoryName = locale.name
+      if categoryName
         memo.push { text: categoryName, value: categoryName }
       memo
     , [])
+
+
+  ###
+  @return {String} The name of some category model
+  ###
+  _getCategoryName: (model) ->
+    if model instanceof I18nModel
+      defaultLocale = model.get 'defaultLocale'
+      categoryName  = defaultLocale.name
+    else
+      categoryName  = model.name
+
+    categoryName

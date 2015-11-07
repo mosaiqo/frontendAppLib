@@ -1,5 +1,6 @@
 _          = require 'underscore'
 BaseObject = require '../appBaseComponents/Object'
+I18nModel  = require '../appBaseComponents/entities/I18nModel'
 
 
 module.exports = class CategorizableModelControllerHelper extends BaseObject
@@ -21,8 +22,8 @@ module.exports = class CategorizableModelControllerHelper extends BaseObject
   ###
   Category hanling setup
 
-  The tags attribute is a little bit special because it contains a collection,
-  so its necessary to perform some actions when savinf the model
+  The category attribute is a little bit special because it contains a model,
+  so its necessary to perform some actions when saving the model
   ###
   setupListeners: () ->
     categoryAttr = @options.categoryModelAttribute
@@ -61,7 +62,7 @@ module.exports = class CategorizableModelControllerHelper extends BaseObject
       modelCategory = @model.get categoryAttr
 
       # retrieve the category model
-      categoryModel = @findCategoryByDefaultName requestedCategory
+      categoryModel = @findCategoryByName requestedCategory
 
       # if nothing found, create a new category
       unless categoryModel
@@ -69,12 +70,7 @@ module.exports = class CategorizableModelControllerHelper extends BaseObject
 
         if categoryFactory
           categoryModel = @appChannel.request categoryFactory
-
-          # set the name on the default locale (the model is new,
-          # so the locales collection should contain only one locale)
-          locales  = categoryModel.get 'locales'
-          locale   = locales.at 0
-          locale.set 'name', requestedCategory
+          @_setCategoryName categoryModel, requestedCategory
         else
           categoryModel = null
 
@@ -82,16 +78,45 @@ module.exports = class CategorizableModelControllerHelper extends BaseObject
 
 
   ###
-  Find a category by the name attribute of its default locale
+  Find a category by its name
+  (if the Category has locales, the nam of the default locale)
 
   @param  {String} categoryName
   @return {Model} The category model, or null if nothing found
   ###
-  findCategoryByDefaultName: (categoryName) ->
+  findCategoryByName: (categoryName) ->
     ret = null
-    @collection.forEach (category) ->
-      locale = category.get 'defaultLocale'
-
-      if locale and locale.name is categoryName
+    @collection.forEach (category) =>
+      if @_getCategoryName(category) is categoryName
         ret = category
     ret
+
+
+
+  ###
+  @return {String} The name of some category model
+  ###
+  _getCategoryName: (model) ->
+    if model instanceof I18nModel
+      defaultLocale = model.get 'defaultLocale'
+      categoryName  = defaultLocale.name
+    else
+      categoryName  = model.name
+
+    categoryName
+
+
+  ###
+  @param {Category} model The model
+  @param {String}   name  The new name
+  ###
+  _setCategoryName: (model, name) ->
+    if model instanceof I18nModel
+      # set the name on the default locale (the model is new,
+      # so the locales collection should contain only one locale)
+      locales  = model.get 'locales'
+      locale   = locales.at 0
+      locale.set 'name', name
+
+    else
+      model.set 'name', name

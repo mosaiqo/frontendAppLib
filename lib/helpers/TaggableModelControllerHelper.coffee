@@ -1,5 +1,6 @@
 _          = require 'underscore'
 BaseObject = require '../appBaseComponents/Object'
+I18nModel  = require '../appBaseComponents/entities/I18nModel'
 
 
 module.exports = class TaggableModelControllerHelper extends BaseObject
@@ -23,7 +24,7 @@ module.exports = class TaggableModelControllerHelper extends BaseObject
   Tags hanling setup
 
   The tags attribute is a little bit special because it contains a collection,
-  so its necessary to perform some actions when savinf the model
+  so its necessary to perform some actions when saving the model
   ###
   setupListeners: () ->
     tagsAttr = @options.tagsModelAttribute
@@ -60,7 +61,7 @@ module.exports = class TaggableModelControllerHelper extends BaseObject
     # the tag models array that will be used to reset the entity `tags`collection
     newTags = requestedTags.map (tagName) =>
       # retrieve the tag model
-      tagModel = @findTagByDefaultName tagName
+      tagModel = @findTagByName tagName
 
       # if nothing found, create a new tag
       unless tagModel
@@ -68,12 +69,7 @@ module.exports = class TaggableModelControllerHelper extends BaseObject
 
         if tagFactory
           tagModel =  @appChannel.request tagFactory
-
-          # set the name on the default locale (the model is new,
-          # so the locales collection should contain only one locale)
-          locales  = tagModel.get 'locales'
-          locale   = locales.at 0
-          locale.set 'name', tagName
+          @_setTagName tagModel, tagName
         else
           tagModel = null
       tagModel
@@ -82,17 +78,44 @@ module.exports = class TaggableModelControllerHelper extends BaseObject
 
 
   ###
-  Find a tag by the name attribute of its default locale
+  Find a Tag by its name
+  (if the Tag has locales, the nam of the default locale)
 
   @param  {String} tagName
   @return {Model} The tag model, or null if nothing found
   ###
-  findTagByDefaultName: (tagName) ->
+  findTagByName: (tagName) ->
     ret = null
-    @collection.forEach (tag) ->
-      locale = tag.get 'defaultLocale'
-
-      if locale and locale.name is tagName
+    @collection.forEach (tag) =>
+      if @_getTagName(tag) is tagName
         ret = tag
     ret
 
+
+  ###
+  @return {String} The name of some tag model
+  ###
+  _getTagName: (model) ->
+    if model instanceof I18nModel
+      defaultLocale = model.get 'defaultLocale'
+      tagName       = defaultLocale.name
+    else
+      tagName       = model.name
+
+    tagName
+
+
+  ###
+  @param {Tag}    model The model
+  @param {String} name  The new name
+  ###
+  _setTagName: (model, name) ->
+    if model instanceof I18nModel
+      # set the name on the default locale (the model is new,
+      # so the locales collection should contain only one locale)
+      locales  = model.get 'locales'
+      locale   = locales.at 0
+      locale.set 'name', name
+
+    else
+      model.set 'name', name
