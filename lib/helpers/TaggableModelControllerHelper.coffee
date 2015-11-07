@@ -100,7 +100,7 @@ module.exports = class TaggableModelControllerHelper extends BaseObject
       defaultLocale = model.get 'defaultLocale'
       tagName       = defaultLocale.name
     else
-      tagName       = model.name
+      tagName       = model.get 'name'
 
     tagName
 

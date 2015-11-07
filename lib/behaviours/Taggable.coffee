@@ -113,6 +113,6 @@ module.exports = class Taggable extends Marionette.Behavior
       defaultLocale = model.get 'defaultLocale'
       tagName       = defaultLocale.name
     else
-      tagName       = model.name
+      tagName       = model.get 'name'
 
     tagName

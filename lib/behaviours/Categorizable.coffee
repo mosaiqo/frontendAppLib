@@ -111,6 +111,6 @@ module.exports = class Categorizable extends Marionette.Behavior
       defaultLocale = model.get 'defaultLocale'
       categoryName  = defaultLocale.name
     else
-      categoryName  = model.name
+      categoryName  = model.get 'name'
 
     categoryName
