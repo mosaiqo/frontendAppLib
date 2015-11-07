@@ -101,7 +101,7 @@ module.exports = class CategorizableModelControllerHelper extends BaseObject
       defaultLocale = model.get 'defaultLocale'
       categoryName  = defaultLocale.name
     else
-      categoryName  = model.name
+      categoryName  = model.get 'name'
 
     categoryName
 
