@@ -36,8 +36,17 @@ module.exports = Backgrid.ButtonCell = Backgrid.Cell.extend
   Render method
   ###
   render: ->
-    # use btnLabel as the button text or the column label if not deffined
-    btnLabel = @column.get('btnLabel') or @column.get('label')
+    # use btnLabel as the button text or the column label/model attr if not deffined
+    btnLabel = @column.get('btnLabel')
+
+    unless btnLabel
+      # this cell can be associated to a model attribute or not
+      columnName = @column.get 'name'
+
+      if columnName
+        btnLabel = @formatter.fromRaw(@model.get(columnName), @model)
+      else
+        btnLabel = @column.get 'label'
 
     # css classes applied to the button
     btnClass = @column.get 'buttonClass' or ''
