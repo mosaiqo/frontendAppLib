@@ -100,7 +100,12 @@ module.exports = class Collection extends PageableCollection
   Extracts the data from the API responses (the data is wrapped)
   ###
   parseRecords: (resp) ->
-    resp.data
+    if resp.data
+      resp.data
+    else
+      # the nesed entity is not expanded
+      @pending = true
+      []
 
 
   ###
