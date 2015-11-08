@@ -28,17 +28,20 @@ module.exports = class InfiniteScrollingBehaviour extends Marionette.Behavior
   # Ev, handler executed when the collection starts syncing with the server
   syncStart: ->
     @loading = true
-    @ui.scrollableContainer.addClass 'loading'
+    if @ready
+      @ui.scrollableContainer.addClass 'loading'
 
 
   # Ev, handler executed when the collection finishes syncing with the server
   syncStop: ->
     @loading = false
-    @ui.scrollableContainer.removeClass 'loading'
+    if @ready
+      @ui.scrollableContainer.removeClass 'loading'
 
 
   # Init it when the view DOM is ready
   onRender: ->
+    @ready = true
 
     # the ui events hash uses $.delegate, but the scroll event does not bubble
     # so
