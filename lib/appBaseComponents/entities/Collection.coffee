@@ -127,7 +127,8 @@ module.exports = class Collection extends PageableCollection
   Add a filter for the fetch operations
   ###
   addQueryFilter: (filterName, value) ->
-    filters = (@queryParams.filter or '').split ','
+    currentFilters = @queryParams.filter
+    filters = if currentFilters then currentFilters.split(',') else []
 
     newFilter = filterName
     unless _.isUndefined value
@@ -141,7 +142,8 @@ module.exports = class Collection extends PageableCollection
   Remove a filter
   ###
   removeQueryFilter: (filterName) ->
-    filters = (@queryParams.filter or '').split ','
+    currentFilters = @queryParams.filter
+    filters = if currentFilters then currentFilters.split(',') else []
 
     if filters.length
       newFilters = _.reject filters, (filter) ->
