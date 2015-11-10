@@ -124,6 +124,34 @@ module.exports = class Collection extends PageableCollection
 
 
   ###
+  Add a filter for the fetch operations
+  ###
+  addQueryFilter: (filterName, value) ->
+    filters = (@queryParams.filter or '').split ','
+
+    newFilter = filterName
+    unless _.isUndefined value
+      newFilter += ":#{value}"
+
+    filters.push newFilter
+    @queryParams.filter = filters.join ','
+
+
+  ###
+  Remove a filter
+  ###
+  removeQueryFilter: (filterName) ->
+    filters = (@queryParams.filter or '').split ','
+
+    if filters.length
+      newFilters = _.reject filters, (filter) ->
+        filter.split(:)[0] is filterName
+
+      @queryParams.filter = newFilters.join ','
+
+
+
+  ###
   @return {string} the sorting parameters, as a string
   ###
   getSorting: ->

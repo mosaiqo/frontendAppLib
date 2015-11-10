@@ -79,6 +79,20 @@ module.exports = class ModuleEntities extends Module
     if options.state and _.isFunction entity.setState
       entity.setState options.state
 
+    if options.filters
+      # filters should be defined as an array, where each value
+      # can be either a string (the filter name) or an object,
+      # where the key is the filter name and the value the filter
+      # parameters
+      options.filters.forEach (filter) ->
+        if _.isString filter
+          entity.addQueryFilter filter
+        else
+          if _.isObject(filter) and !_.isArray(filter) and !_.isFunction(filter)
+            f = _.flatten(_.pairs(filter))
+            entity.addQueryFilter f[0], f[1]
+
+
 
   ###
   Init some model
