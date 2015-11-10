@@ -145,7 +145,7 @@ module.exports = class Collection extends PageableCollection
 
     if filters.length
       newFilters = _.reject filters, (filter) ->
-        filter.split(:)[0] is filterName
+        filter.split(':')[0] is filterName
 
       @queryParams.filter = newFilters.join ','
 
