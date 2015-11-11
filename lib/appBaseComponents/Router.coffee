@@ -10,9 +10,7 @@ module.exports = class Router extends Marionette.AppRouter
     rootUrl = options.rootUrl ? ''
 
     # Initialize the appRoutes
-    if @prefixedAppRoutes?
-      for route, action of @prefixedAppRoutes
-        @appRoute rootUrl + route, action
+    if @prefixedAppRoutes? then @_setupPrefixedAppRoutes rootUrl
 
     # The application might be composed by multiple routers
     # for the different modules. Trigger an event on the router
@@ -20,15 +18,27 @@ module.exports = class Router extends Marionette.AppRouter
     # router routes is matched) or inactive, so the controller
     # can initialize or cleanup stuff.
     if rootUrl and options.controller
-      @listenTo Backbone.history, 'route', =>
-        url     = Backbone.history.getFragment()
-        regex   = new RegExp '^' + rootUrl
-        matches = regex.test url
+      @_setupNavigationHandlers rootUrl, options.controller
 
-        if matches and not @active
-          @active = true
-          Marionette.triggerMethodOn options.controller, 'active'
 
-        if not matches and @active
-          @active = false
-          Marionette.triggerMethodOn options.controller, 'inactive'
+  _setupPrefixedAppRoutes: (moduleUrl) ->
+    for route, action of @prefixedAppRoutes
+      @appRoute moduleUrl + route, action
+
+
+  _setupNavigationHandlers: (moduleUrl, controller) ->
+    @listenTo Backbone.history, 'route', =>
+      url     = Backbone.history.getFragment()
+      regex   = @_getRouteRegex moduleUrl
+      matches = regex.test url
+
+      if matches and not @active
+        @active = true
+        Marionette.triggerMethodOn controller, 'active'
+
+      if not matches and @active
+        @active = false
+        Marionette.triggerMethodOn controller, 'inactive'
+
+
+  _getRouteRegex: (moduleUrl) -> new RegExp '^' + moduleUrl
