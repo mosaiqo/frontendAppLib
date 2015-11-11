@@ -101,6 +101,7 @@ module.exports = class Collection extends PageableCollection
   ###
   parseRecords: (resp) ->
     if resp.data
+      @pending = false
       resp.data
     else
       # the nesed entity is not expanded
