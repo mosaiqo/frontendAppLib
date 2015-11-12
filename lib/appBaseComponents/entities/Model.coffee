@@ -228,8 +228,51 @@ module.exports = class Model extends Backbone.AssociatedModel
       return _s.humanize attribute
 
 
-
   ###
   Returns a reference to the last xhr object created during sync
   ###
   getDeferred: -> @_xhr
+
+
+  ###
+  Querystring params
+  ###
+  queryParams: {}  
+
+
+  ###
+  Add support for querystring parameters on fetch
+  ###
+  fetch: (options = {}) ->
+    unless _.isEmpty @queryParams
+      options.data = @queryParams
+    super options
+
+
+  ###
+  Add a filter for the fetch operations
+  ###
+  addQueryFilter: (filterName, value) ->
+    currentFilters = @queryParams.filter
+    filters = if currentFilters then currentFilters.split(',') else []
+
+    newFilter = filterName
+    unless _.isUndefined value
+      newFilter += ":#{value}"
+
+    filters.push newFilter
+    @queryParams.filter = filters.join ','
+
+
+  ###
+  Remove a filter
+  ###
+  removeQueryFilter: (filterName) ->
+    currentFilters = @queryParams.filter
+    filters = if currentFilters then currentFilters.split(',') else []
+
+    if filters.length
+      newFilters = _.reject filters, (filter) ->
+        filter.split(':')[0] is filterName
+
+      @queryParams.filter = newFilters.join ','
