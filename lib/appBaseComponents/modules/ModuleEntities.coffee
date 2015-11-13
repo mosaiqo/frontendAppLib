@@ -76,6 +76,9 @@ module.exports = class ModuleEntities extends Module
     if options.customExpands
       entity.expandedRelations = options.customExpands
 
+    if options.sort && _.isFunction entity.setSorting
+      entity.setSorting options.sort
+
     if options.state and _.isFunction entity.setState
       entity.setState options.state
 

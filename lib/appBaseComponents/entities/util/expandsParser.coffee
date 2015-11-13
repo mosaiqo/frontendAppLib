@@ -15,9 +15,9 @@ module.exports =
 
       if expand.page  then ret += ":page(#{expand.page})"
       if expand.limit then ret += ":per_page(#{expand.limit})"
-      if expand.order
-        order = @parseSortOptions expand.order
-        ret += ":order(#{order})"
+      if expand.sort
+        sort = @parseSortOptions expand.sort
+        ret += ":sort(#{sort})"
     ret
 
 
