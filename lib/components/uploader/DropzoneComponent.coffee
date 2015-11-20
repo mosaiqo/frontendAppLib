@@ -9,7 +9,7 @@ UploadModel = require './entities/Upload'
 Dropzone.autoDiscover = false
 
 
-class DropzoneFile extends Object
+module.exports = class DropzoneFile extends Object
 
   ###
   @propperty {Boolean} single or multiple files accepted
