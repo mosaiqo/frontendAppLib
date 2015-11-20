@@ -69,7 +69,7 @@ module.exports = class Collection extends PageableCollection
 
     # overwrite the url with the one received from the API
     if url
-      normalizedUrl = channel.request 'cleanUrl', url
+      normalizedUrl = channel.request 'api:url:clean', url
       @url = normalizedUrl or url
 
     if paginator

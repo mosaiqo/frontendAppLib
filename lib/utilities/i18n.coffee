@@ -169,5 +169,6 @@ module.exports = (Module, App, Backbone, Marionette, $, _) ->
 
   # init
   i18n.init opts, ->
-    $('html').attr 'lang', i18n.detectLanguage()
-    App.channel.trigger 'locale:loaded'
+    locale = i18n.detectLanguage()
+    $('html').attr 'lang', locale
+    App.channel.trigger 'locale:loaded', locale
