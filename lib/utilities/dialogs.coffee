@@ -21,7 +21,7 @@ module.exports = (Module, App, Backbone, Marionette, $, _) ->
   # set the default locale
   locale = App.channel.request 'locale:get'
   bootbox.setLocale locale
-  
+
   # listen for locale changes
   @listenTo App.channel, 'locale:loaded', (locale) ->
     bootbox.setLocale locale
@@ -32,10 +32,10 @@ module.exports = (Module, App, Backbone, Marionette, $, _) ->
     bootbox.alert args
 
   App.channel.reply 'dialogs:prompt', (args...) ->
-    bootbox.prompt args
+    bootbox.prompt args...
 
   App.channel.reply 'dialogs:confirm', (args...) ->
-    bootbox.confirm args
+    bootbox.confirm args...
 
   App.channel.reply 'dialogs:dialog', (args...) ->
-    bootbox.dialog args
+    bootbox.dialog args...
