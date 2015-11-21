@@ -1,6 +1,6 @@
 {
   "name": "msq-appbase",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Library to build fronted apps using Marionnette",
   "author": "Mosaiqo Team <mosaiqo@mosaiqo.com>",
   "homepage": "http://www.mosaiqo.com",
@@ -44,6 +44,7 @@
     "coffeelint": "^1.13.0",
     "csso-stylus": "0.0.3",
     "docker": "^0.2.14",
+    "dropzone": "^4.2.0",
     "enquire.js": "^2.1.1",
     "faker": "^3.0.1",
     "handlebars": "^4.0.3",

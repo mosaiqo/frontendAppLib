@@ -65,6 +65,11 @@ module.exports = class DropzoneFile extends Object
     # if there's any previous data, display it
     @populatePreviousUploads(data)
 
+    # set the initial value
+    setTimeout(=>
+      @updateFieldValue()
+    , 1000)
+
 
   ###
   Getter for the wrapped DropzoneJS instance
@@ -116,7 +121,15 @@ module.exports = class DropzoneFile extends Object
     # update the `multiple` flag
     if settings.maxFiles > 1 then @multiple = true
 
-    settings
+    # the settings object contains mostly DropzoneJS params,
+    # but also allows to override the serialize and deserialize methods
+    if settings.serialize and _.isFunction(settings.serialize)
+      @serialize = settings.serialize
+
+    if settings.deserialize and _.isFunction(settings.deserialize)
+      @deserialize = settings.deserialize
+
+    _.omit settings, 'serialize', 'deserialize'
 
 
   ###
@@ -244,7 +257,7 @@ module.exports = class DropzoneFile extends Object
       @dz.emit 'addedfile', mockFile
 
       # And optionally show the thumbnail of the file:
-      ext = mockFile.url.split('.').pop()
+      ext = mockFile.url?.split('.').pop()
 
       if ['jpg', 'jpeg', 'png', 'gif'].indexOf(ext) > -1
         @dz.emit 'thumbnail', mockFile, mockFile.url
@@ -266,7 +279,7 @@ module.exports = class DropzoneFile extends Object
   ###
   deserialize: (obj) ->
     # required fields
-    name:     obj.path.split('/').pop()
+    name:     obj.path?.split('/').pop()
     size:     obj.size,
     type:     obj.contentType
     url:      obj.url
@@ -295,6 +308,19 @@ module.exports = class DropzoneFile extends Object
   bindElementClick: (file) =>
     elem = file.previewElement
     elem.className = elem.className + ' clickable'
+
+    # add a set method to make it easier manipulating the file
+    # and triggering the appropiate events
+    instance = @
+    file.set = (key, val) ->
+      if key is 'name'
+        @name = val
+        node.textContent = val for node in @previewElement.querySelectorAll '[data-dz-name]'
+      else if key is 'upload'
+        if _.isObject(val) then @uploadModel.set val
+      else
+        @[key] = val
+      instance.updateFieldValue()
 
     elem.addEventListener 'click', =>
       @dz.options.clickedfile file, elem
