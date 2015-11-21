@@ -121,7 +121,15 @@ module.exports = class DropzoneFile extends Object
     # update the `multiple` flag
     if settings.maxFiles > 1 then @multiple = true
 
-    settings
+    # the settings object contains mostly DropzoneJS params,
+    # but also allows to override the serialize and deserialize methods
+    if settings.serialize and _.isFunction(settings.serialize)
+      @serialize = settings.serialize
+
+    if settings.deserialize and _.isFunction(settings.deserialize)
+      @deserialize = settings.deserialize
+
+    _.omit settings, 'serialize', 'deserialize'
 
 
   ###
