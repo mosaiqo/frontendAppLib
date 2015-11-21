@@ -244,7 +244,7 @@ module.exports = class DropzoneFile extends Object
       @dz.emit 'addedfile', mockFile
 
       # And optionally show the thumbnail of the file:
-      ext = mockFile.url.split('.').pop()
+      ext = mockFile.url?.split('.').pop()
 
       if ['jpg', 'jpeg', 'png', 'gif'].indexOf(ext) > -1
         @dz.emit 'thumbnail', mockFile, mockFile.url
@@ -266,7 +266,7 @@ module.exports = class DropzoneFile extends Object
   ###
   deserialize: (obj) ->
     # required fields
-    name:     obj.path.split('/').pop()
+    name:     obj.path?.split('/').pop()
     size:     obj.size,
     type:     obj.contentType
     url:      obj.url
