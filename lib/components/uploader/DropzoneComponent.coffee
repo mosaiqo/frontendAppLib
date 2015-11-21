@@ -309,6 +309,19 @@ module.exports = class DropzoneFile extends Object
     elem = file.previewElement
     elem.className = elem.className + ' clickable'
 
+    # add a set method to make it easier manipulating the file
+    # and triggering the appropiate events
+    instance = @
+    file.set = (key, val) ->
+      if key is 'name'
+        @name = val
+        node.textContent = val for node in @previewElement.querySelectorAll '[data-dz-name]'
+      else if key is 'upload'
+        if _.isObject(val) then @uploadModel.set val
+      else
+        @[key] = val
+      instance.updateFieldValue()
+
     elem.addEventListener 'click', =>
       @dz.options.clickedfile file, elem
 
