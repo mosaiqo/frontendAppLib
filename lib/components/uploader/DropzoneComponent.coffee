@@ -65,6 +65,11 @@ module.exports = class DropzoneFile extends Object
     # if there's any previous data, display it
     @populatePreviousUploads(data)
 
+    # set the initial value
+    setTimeout(=>
+      @updateFieldValue()
+    , 1000)
+
 
   ###
   Getter for the wrapped DropzoneJS instance
