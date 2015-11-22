@@ -246,6 +246,8 @@ module.exports = class DropzoneFile extends Object
   Used for example when editing an existing record
   ###
   populatePreviousUploads: (data = []) ->
+    unless _.isArray data then return
+
     data.forEach (dataObj) =>
       mockFile = @deserialize dataObj
 
