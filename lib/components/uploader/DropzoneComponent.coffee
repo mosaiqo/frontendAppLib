@@ -303,6 +303,8 @@ module.exports = class DropzoneFile extends Object
     if _.has(settings, 'clickedfile') and _.isFunction(settings.clickedfile)
       @dz.on 'addedfile', @bindElementClick
 
+    if !@multiple and settings.deleteOnReplace
+      @dz.on 'addedfile', @replacePreviousFile
 
   ###
   Attach a click handler to each file block
@@ -350,3 +352,48 @@ module.exports = class DropzoneFile extends Object
     if file.uploadModel
       file.uploadModel.destroy
         success: => @updateFieldValue()
+
+
+  ###
+  When the widget accepts only one file, ask the user if he wants to
+  replace it when adding a file with a preexisting one selected
+  ###
+  replacePreviousFile: (file) =>
+    # previous file + the one added
+    currentFiles = @dz.files
+
+    if currentFiles.length > 1
+      q  = i18n.t "uploader::There's already a file selected. Do you want to replace it?"
+      cb = (replace) =>
+        unless replace
+          # remove the new one
+          @dz.removeFile currentFiles[1]
+        else
+          # remove the old one
+          @dz.removeFile currentFiles[0]
+
+          # This handler is only used when the dropbox accepts only 1 file
+          # so when the new file was added, an error class was set on the
+          # preview and the file was not actually processed.
+          # So, if replacing, cleanup the preview and process the file.
+          newFile = currentFiles[1]
+
+          newFile.previewElement.classList.remove 'dz-error'
+          @dz.processFile newFile
+
+      @_confirm q, cb
+
+
+  ###
+  Aux confirm method
+
+  Displays a confirm using Bootbox (or any custom dialog system),
+  or falls back to a native one
+  ###
+  _confirm: (text, callback = _.noop) ->
+    customConfirm = @appChannel.request 'dialogs:confirm', text, callback
+
+    # fallback to plain confirm
+    unless customConfirm
+      window.confirm text, callback
+
