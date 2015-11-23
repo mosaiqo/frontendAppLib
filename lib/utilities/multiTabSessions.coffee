@@ -26,7 +26,6 @@ sessionStorage_transfer = (callback, event) ->
     data = JSON.parse(event.newValue)
     for key of data
       sessionStorage.setItem key, data[key]
-      console.log '----callback----'
     callback()
   return
 
@@ -36,8 +35,6 @@ module.exports =
     sessionTransfer = _.partial sessionStorage_transfer, callback
 
     if !sessionStorage.length
-      console.info '!sessionStorage.length'
-
       # Ask other tabs for session storage
       localStorage.setItem 'getSessionStorage', Date.now()
 
@@ -45,7 +42,6 @@ module.exports =
       # execute the callback after a short delay
       setTimeout callback, 100
     else
-      console.info 'sessionStorage.length'
       callback()
 
     # listen for changes to localStorage
