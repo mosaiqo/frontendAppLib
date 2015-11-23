@@ -87,7 +87,10 @@ module.exports = class FormController extends ViewController
     ## notify our controller instance in case things are listening to it
     @trigger('form:submit', data)
 
-    @processModelSave(data, config) unless @_shouldNotProcessModelSave(config, data)
+    setTimeout(=>
+      console.log data
+      @processModelSave(data, config) unless @_shouldNotProcessModelSave(config, data)
+    ,200)
 
   formOtherAction: (config, action) ->
     action = config['onForm' + _s.capitalize action]
