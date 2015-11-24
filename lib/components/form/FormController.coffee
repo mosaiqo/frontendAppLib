@@ -88,7 +88,6 @@ module.exports = class FormController extends ViewController
     @trigger('form:submit', data)
 
     setTimeout(=>
-      console.log data
       @processModelSave(data, config) unless @_shouldNotProcessModelSave(config, data)
     ,200)
 
