@@ -20,7 +20,7 @@ module.exports =
 
     re = new RegExp(strRe,'gi')
 
-    str.replace re, (match) => mapObj[match.toLowerCase()]
+    str.replace re, (match) -> mapObj[match.toLowerCase()]
 
 
   escapeQueryParam: (str) ->

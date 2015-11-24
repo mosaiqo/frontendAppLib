@@ -237,7 +237,7 @@ module.exports = class Model extends Backbone.AssociatedModel
   ###
   Querystring params
   ###
-  queryParams: {}  
+  queryParams: {}
 
 
   ###
