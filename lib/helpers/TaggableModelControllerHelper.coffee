@@ -5,7 +5,7 @@ I18nModel  = require '../appBaseComponents/entities/I18nModel'
 
 module.exports = class TaggableModelControllerHelper extends BaseObject
 
-	defaults:
+  defaults:
     tagsModelAttribute: 'tags'
     tagFactory:         null
 
