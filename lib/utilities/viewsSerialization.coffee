@@ -1,3 +1,4 @@
+$        = require 'jquery'
 Backbone = require 'backbone'
 
 
@@ -16,7 +17,13 @@ module.exports = (Module, App, Backbone, Marionette, $, _) ->
 
   Backbone.Syphon.InputReaders.register 'checkbox', ($el) ->
     name = $el.prop 'name'
-    if /\[\]$/.test(name) then $el.val() else $el.prop 'checked'
+
+    if /\[\]$/.test(name)
+      ctx = $el.parents('form').first()
+      $elems = if ctx then ctx.find('[name="' + name + '"]') else $('[name="' + name + '"]')
+      return $elems.serializeArray().map (o) -> o.value
+    else
+      return $el.prop 'checked'
 
 
   Backbone.Syphon.KeyAssignmentValidators.register 'checkbox', ($el, key, value) ->
