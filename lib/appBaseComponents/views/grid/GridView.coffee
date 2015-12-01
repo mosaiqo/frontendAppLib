@@ -11,6 +11,7 @@ LayoutView = require '../LayoutView'
 
 # Custom cell and row classes
 ButtonCell = require './GridButtonCell'
+HtmlCell   = require './GridHtmlCell'
 GridRow    = require './GridRow'
 MomentCell = require 'backgrid-moment-cell'
 
