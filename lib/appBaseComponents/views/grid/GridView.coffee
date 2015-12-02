@@ -5,6 +5,7 @@
 i18n       = require 'i18next-client'
 _          = require 'underscore'
 Backgrid   = require 'backgrid'
+Filter     = require 'backgrid-filter'
 
 # Base class
 LayoutView = require '../LayoutView'

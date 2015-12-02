@@ -1,6 +1,6 @@
 {
   "name": "msq-appbase",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "Library to build fronted apps using Marionnette",
   "author": "Mosaiqo Team <mosaiqo@mosaiqo.com>",
   "homepage": "http://www.mosaiqo.com",
@@ -34,7 +34,8 @@
     "backbone.select": "^1.5.0",
     "backbone.syphon": "^0.6.2",
     "backgrid": "^0.3.5",
-    "backgrid-moment-cell": "git+https://github.com/wyuenho/backgrid-moment-cell.git",
+    "backgrid-filter": "^0.3.5",
+    "backgrid-moment-cell": "git+https://github.com/sprugman/backgrid-moment-cell.git",
     "backgrid-paginator": "^0.3.7",
     "bootbox": "^4.4.0",
     "bootstrap": "^3.3.5",
