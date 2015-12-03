@@ -48,7 +48,6 @@ module.exports = class CSSclassChangeBehaviour extends Marionette.Behavior
   onRender: =>
     setTimeout (=>
       if @ui.input.is # sometimes an error is thrown, saying .is is not a function (WTF)
-        window.input = @ui.input
         if @ui.input.is(':radio')
           val = @ui.input.filter(':checked').val()
         else
