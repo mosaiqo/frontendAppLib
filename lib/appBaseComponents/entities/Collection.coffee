@@ -153,6 +153,22 @@ module.exports = class Collection extends PageableCollection
       @queryParams.filter = newFilters.join ','
 
 
+  ###
+  @return {Boolean} true if the collection has applied the requested filter
+  ###
+  hasQueryFilter: (filterName) ->
+    found = false
+    currentFilters = @queryParams.filter
+    filters = if currentFilters then currentFilters.split(',') else []
+
+    if filters.length
+      matches = _.find filters, (filter) ->
+        filter.split(':')[0] is filterName
+      if matches
+        found = matches.length > 0
+
+    found
+
 
   ###
   @return {string} the sorting parameters, as a string
