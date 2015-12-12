@@ -29,7 +29,7 @@ module.exports = (Module, App, Backbone, Marionette, $, _) ->
 
 
   App.channel.reply 'dialogs:alert', (args...) ->
-    bootbox.alert args
+    bootbox.alert args...
 
   App.channel.reply 'dialogs:prompt', (args...) ->
     bootbox.prompt args...
