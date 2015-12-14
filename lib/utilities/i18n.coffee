@@ -27,7 +27,7 @@ module.exports = (Module, App, Backbone, Marionette, $, _) ->
     ###
     @property {String} Path for the locale files
     ###
-    resGetPath:          '/assets/locales/__lng__/__ns__.json'
+    resGetPath:          'assets/locales/__lng__/__ns__.json'
 
     ###
     @property {String} Dont't load country specific files (for example, load `en` instead of `en-us`)
