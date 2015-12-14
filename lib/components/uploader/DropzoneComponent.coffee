@@ -375,8 +375,8 @@ module.exports = class DropzoneFile extends Object
     # and triggering the appropiate events
     instance = @
     file.set = (key, val) ->
-      if key is 'name'
-        @name = val
+      if key is 'customName'
+        @customName = val
         node.textContent = val for node in @previewElement.querySelectorAll '[data-dz-name]'
       else if key is 'upload'
         if _.isObject(val) then @uploadModel.set val
